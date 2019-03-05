@@ -27,4 +27,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\NSA\Desktop\明确需求.md">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="C:\Users\NSA\Desktop\PSP.xlsx">
+      <Filter>源文件</Filter>
+    </None>
+  </ItemGroup>
 </Project>
