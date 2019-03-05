@@ -5,8 +5,26 @@
 #include <iostream>
 using namespace std;
 
-int main()
-{
+int main(int argc, char *argv[])
+{	
+	if (argc == 2)
+	{
+		switch (argv[1][0])
+		{
+			case 'w' 
+		default:
+			break;
+		}
+	}
+	else if (argc == 3)
+	{
+
+	}
+	for (int i = 0; i < argc; i++)
+	{
+		cout << "duibudui" << argv[i] << endl;
+	}
+	cout << "just try" << endl;
     cout << "Hello World!\n"; 
     cout << "you are so beautiful!" << endl;
 }
