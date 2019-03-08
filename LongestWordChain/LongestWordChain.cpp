@@ -96,7 +96,7 @@ void Graph::topologicalSort()
 // topologicalSortUtil() 方法获得顶点的拓扑序。
 void Graph::longestPath(int s)
 {
-	int dist[V];
+	int *dist = (int *)malloc(sizeof(int)*V);
 	//初始化到所有顶点的距离为负无穷
 	//到源点的距离为0
 	for (int i = 0; i < V; i++)
