@@ -7,6 +7,8 @@
 #include "list"
 #include "stack"
 #include <limits.h>
+#include <vector>
+#include <algorithm>
 #define NINF INT_MIN
 using namespace std;
 
@@ -25,7 +27,7 @@ public:
 class Graph
 {
 	int V; // No. of vertices'
-	stack<int> Stack;
+	vector<int> Stack;
 	// Pointer to an array containing adjacency listsList
 	list<AdjListNode> *adj;
 
@@ -58,19 +60,27 @@ void Graph::addEdge(int u, int v, int weight)
 void Graph::topologicalSortUtil(int v, bool visited[])
 {
 	// Mark the current node as visited.
+	int last_v = 0;
 	visited[v] = true;
-
 	// Recur for all the vertices adjacent to this vertex
 	list<AdjListNode>::iterator i;
 	for (i = adj[v].begin(); i != adj[v].end(); ++i)
 	{
 		if (!visited[i->getV()])
+		{
 			topologicalSortUtil(i->getV(), visited);
+		}
+		else
+		{
+			if (find(Stack.begin(), Stack.end(), i->getV) != Stack.end())
+			{
+				// 说明，该点已经访问过，但是不在Stack中，所以出现环
+				return;
+			}
+		}
 	}
-
-
 	// Push current vertex to stack which stores result
-	Stack.push(v);
+	this->Stack.push_back(v);
 }
 
 
@@ -86,9 +96,10 @@ void Graph::topologicalSort()
 	// Call the recursive helper function to store Topological
 	// Sort starting from all vertices one by one
 	for (int i = 0; i < V; i++)
+	{
 		if (visited[i] == false)
 			topologicalSortUtil(i, visited);
-
+	}
 }
 
 
@@ -107,8 +118,8 @@ void Graph::longestPath(int s)
 	while (Stack.empty() == false)
 	{
 		//取出拓扑序列中的第一个点
-		int u = Stack.top();
-		Stack.pop();
+		int u = Stack.back();
+		Stack.pop_back();
 
 		// 更新到所有邻接点的距离
 		list<AdjListNode>::iterator i;
