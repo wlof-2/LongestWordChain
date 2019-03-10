@@ -9,6 +9,8 @@
 #include <limits.h>
 #include <vector>
 #include <algorithm>
+#include <string.h>
+#include "definition.h"
 #define NINF INT_MIN
 using namespace std;
 
@@ -136,23 +138,56 @@ void Graph::longestPath(int s)
 		(dist[i] == NINF) ? cout << "INF " : cout << dist[i] << " ";
 }
 
+void Get_num(char* word[], int len, Graph *map_node)
+{
+	int length = 0;
+	char word_end;
+	for (int i = 0; i < len; i++)
+	{
+		length = strlen(word[i]);
+		word_end = word[i][length - 1];
+		for (int j = i; j < len; j++)
+		{
+			if (word_end == word[j][0])
+			{
+				map_node->addEdge(i, j, strlen(word[j]));
+			}
+		}
+	}
+	return;
+}
 
-int main()
+int main(int argc, char *argv[])
 {
 	// Create a graph given in the above diagram.  Here vertex numbers are
 	// 0, 1, 2, 3, 4, 5 with following mappings:
 	// 0=r, 1=s, 2=t, 3=x, 4=y, 5=z
-	Graph g(6);
-	g.addEdge(0, 1, 5);
-	g.addEdge(0, 2, 3);
-	g.addEdge(1, 3, 6);
-	g.addEdge(1, 2, 2);
-	g.addEdge(2, 4, 4);
-	g.addEdge(2, 5, 2);
-	g.addEdge(2, 3, 7);
-	g.addEdge(3, 5, 1);
-	g.addEdge(3, 4, -1);
-	g.addEdge(4, 5, -2);
+	int len;
+	char file_name[90] = { 0 };
+	char chose_way = 0;
+	Graph g(len);
+	// 表示有三个参数，两个是输入的
+	if (argc == 3)
+	{
+		chose_way = argv[1][1];
+		// 表示是按照单词数最多还是字母数最多
+		strcpy(file_name, argv[2]);
+	}
+	else if(argc == 4)
+	{
+
+	}
+	else if(argc == 5)
+	{
+		// 表示在命令行中使用 -h 参数加字母的形式，指定单词链的首字母，
+		// 例如 > Wordlist.exe -h e -w absolute_path_of_word_list
+		chose_way = argv[3][1];
+		strcpy(file_name, argv[4]);
+	}
+	else if (argc == 7)
+	{
+
+	}
 
 	int s = 1;
 	cout << "Following are longest distances from source vertex " << s << " \n";
