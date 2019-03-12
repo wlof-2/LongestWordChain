@@ -14,37 +14,6 @@
 #define NINF INT_MIN
 using namespace std;
 
-class AdjListNode
-{
-	int v;
-	int weight;
-
-public:
-	AdjListNode(int _v, int _w) { v = _v;  weight = _w; }
-	int getV() { return v; }
-	int getWeight() { return weight; }
-};
-
-// Class to represent a graph
-class Graph
-{
-	int V; // No. of vertices'
-	vector<int> Stack;
-	// Pointer to an array containing adjacency listsList
-	list<AdjListNode> *adj;
-
-	// A function used by topologicalSort
-	void topologicalSortUtil(int v, bool visited[]);
-public:
-	Graph(int V); // Constructor
-
-	// function to add an edge to graph
-	void addEdge(int u, int v, int weight);
-
-	// prints a Topological Sort of the complete graph
-	void longestPath(int s);
-	void topologicalSort();
-};
 
 Graph::Graph(int V)
 {
@@ -107,14 +76,23 @@ void Graph::topologicalSort()
 
 // 根据传入的顶点，求出到到其它点的最长路径. longestPath使用了
 // topologicalSortUtil() 方法获得顶点的拓扑序。
-void Graph::longestPath(int s)
+void Graph::longestPath(int start, char* word[], Node_Path *dist, bool begin_end)
 {
-	int *dist = (int *)malloc(sizeof(int)*V);
+	//Node_Path *dist = new Node_Path[V];
 	//初始化到所有顶点的距离为负无穷
 	//到源点的距离为0
 	for (int i = 0; i < V; i++)
-		dist[i] = NINF;
-	dist[s] = 0;
+	{
+		if (E_degree[i] == 0)
+		{
+			dist[i].end_length = strlen(word[i]);
+		}
+		else
+		{
+			dist[i].end_length = NINF;
+		}
+	}
+	dist[start].end_length = strlen(word[start]);
 
 	// 处理拓扑序列中的点
 	while (Stack.empty() == false)
@@ -125,20 +103,113 @@ void Graph::longestPath(int s)
 
 		// 更新到所有邻接点的距离
 		list<AdjListNode>::iterator i;
-		if (dist[u] != NINF)
+		if (dist[u].end_length != NINF)
 		{
 			for (i = adj[u].begin(); i != adj[u].end(); ++i)
-				if (dist[i->getV()] < dist[u] + i->getWeight())
-					dist[i->getV()] = dist[u] + i->getWeight();
+			{
+				if (begin_end)
+				{
+					//从某个点作为开头开始找
+					if (dist[i->getV()].end_length < dist[u].end_length + i->getWeight() && \
+						(dist[i->getV()].Path.front == start || u == start))
+					{
+						dist[i->getV()].end_length = dist[u].end_length + i->getWeight();
+						dist[i->getV()].Path = dist[u].Path;
+						dist[i->getV()].Path.push_back(u);
+					}
+				}
+				else if (dist[i->getV()].end_length < dist[u].end_length + i->getWeight())
+				{
+					dist[i->getV()].end_length = dist[u].end_length + i->getWeight();
+					dist[i->getV()].Path = dist[u].Path;
+					dist[i->getV()].Path.push_back(u);
+				}
+			}
+				
 		}
 	}
-
-	// 打印最长路径
-	for (int i = 0; i < V; i++)
-		(dist[i] == NINF) ? cout << "INF " : cout << dist[i] << " ";
+	return;
 }
 
-void Get_num(char* word[], int len, Graph *map_node)
+void Graph::Every_Path(int chose, char* word[], Node_Path *dist, char end_letter, char start_letter)
+{
+	vector<int> R_Path;
+	int max = -1, end_point = 0, start = 0;
+	vector<int> start_array;
+	for (int i = 0; i < V; i++)
+	{
+		if (word[i][0] == start_letter)
+		{
+			start_array.push_back(i);
+		}
+	}
+	if (chose == 1)
+	{
+		//表示直接找最长单词链，带权的
+		longestPath(0, word, dist, false);
+		for (int i = 0; i < V; i++)
+		{
+			if (dist[i].end_length > max)
+			{
+				max = dist[i].end_length;
+				end_point = i;
+				R_Path = dist[i].Path;
+			}	
+		}
+	}
+	else if (chose == 2)
+	{
+		 //确定开头的
+		vector<int>::iterator j;
+		for (j = start_array.begin(); j != start_array.end(); ++j)
+		{
+			longestPath(*j, word, dist, true);
+			for (int i = start; i < V; i++)
+			{
+				if (dist[i].end_length > max)
+				{
+					max = dist[i].end_length;
+					end_point = i;
+					R_Path = dist[i].Path;
+				}
+			}
+		}
+	}
+	else if(chose == 3) 
+	{
+		//确定结尾的
+		longestPath(0, word, dist, false);
+		for (int i = 0; i < V; i++)
+		{
+			if (dist[i].end_length > max && word[i][strlen(word[i]) - 1] == end_letter)
+			{
+				max = dist[i].end_length;
+				end_point = i;
+			}
+		}
+
+	}
+	else if (chose == 4)
+	{
+		//确定开头和结尾的
+		vector<int>::iterator j;
+		for (j = start_array.begin(); j != start_array.end(); ++j)
+		{
+			longestPath(*j, word, dist, true);
+			for (int i = start; i < V; i++)
+			{
+				if (dist[i].end_length > max && word[i][strlen(word[i]) - 1] == end_letter)
+				{
+					max = dist[i].end_length;
+					end_point = i;
+					R_Path = dist[i].Path;
+				}
+			}
+		}
+	}
+}
+
+void Get_num(char* word[], int len, Graph *map_node, bool Weight)
 {
 	int length = 0;
 	char word_end;
@@ -150,49 +221,14 @@ void Get_num(char* word[], int len, Graph *map_node)
 		{
 			if (word_end == word[j][0])
 			{
-				map_node->addEdge(i, j, strlen(word[j]));
+				E_degree[j] += 1;
+				if(Weight)
+					map_node->addEdge(i, j, strlen(word[j]));
+				else
+					map_node->addEdge(i, j, 1);
 			}
 		}
 	}
 	return;
 }
 
-int main(int argc, char *argv[])
-{
-	// Create a graph given in the above diagram.  Here vertex numbers are
-	// 0, 1, 2, 3, 4, 5 with following mappings:
-	// 0=r, 1=s, 2=t, 3=x, 4=y, 5=z
-	int len;
-	char file_name[90] = { 0 };
-	char chose_way = 0;
-	Graph g(len);
-	// 表示有三个参数，两个是输入的
-	if (argc == 3)
-	{
-		chose_way = argv[1][1];
-		// 表示是按照单词数最多还是字母数最多
-		strcpy(file_name, argv[2]);
-	}
-	else if(argc == 4)
-	{
-
-	}
-	else if(argc == 5)
-	{
-		// 表示在命令行中使用 -h 参数加字母的形式，指定单词链的首字母，
-		// 例如 > Wordlist.exe -h e -w absolute_path_of_word_list
-		chose_way = argv[3][1];
-		strcpy(file_name, argv[4]);
-	}
-	else if (argc == 7)
-	{
-
-	}
-
-	int s = 1;
-	cout << "Following are longest distances from source vertex " << s << " \n";
-	g.topologicalSort();
-	g.longestPath(s);
-	cout << "nothing" << endl;
-	return 0;
-}
