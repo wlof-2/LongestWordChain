@@ -148,7 +148,7 @@ void Graph::longestPath(int start, char* word[], Node_Path *dist, bool begin_end
 
 void Graph::Every_Path(int chose, char* word[], Node_Path *dist, char end_letter, char start_letter)
 {
-	vector<int> R_Path;
+	
 	int max = -1, end_point = 0, start = 0;
 	vector<int> start_array;
 	for (int i = 0; i < V; i++)
@@ -222,6 +222,7 @@ void Graph::Every_Path(int chose, char* word[], Node_Path *dist, char end_letter
 			}
 		}
 	}
+	R_Path.push_back(end_point);
 }
 
 void Graph::Get_num(char* word[], int len, bool Weight)
@@ -232,7 +233,7 @@ void Graph::Get_num(char* word[], int len, bool Weight)
 	{
 		length = strlen(word[i]);
 		word_end = word[i][length - 1];
-		for (int j = i; j < len; j++)
+		for (int j = i + 1; j < len; j++)
 		{
 			if (word_end == word[j][0])
 			{
@@ -298,6 +299,7 @@ void getInput(int argc, char *argv[], Graph *map, char* word[], int length, Node
 	if (isOpt(opt[0], argc, argv))				//parameter "-w"
 	{
 		map->Get_num(word, length, true);
+		map->topologicalSort();
 		//新建一个图存储
 		if (isOpt(opt[1], argc, argv))
 		{
@@ -336,7 +338,7 @@ void getInput(int argc, char *argv[], Graph *map, char* word[], int length, Node
 		else									//
 		{
 			//parameter "-w" 
-
+			map->Every_Path(1, word, dist, 'w', 'r');
 			//map->Every_Path()
 		}
 	}
@@ -407,7 +409,16 @@ int main(int argc, char *argv[])
 	// 0=r, 1=s, 2=t, 3=x, 4=y, 5=z
 	
 	cin >> argc;
-	cin >> *argv;
+	argv[1] = (char*)malloc(sizeof(char) * 10);
+	argv[2] = (char*)malloc(sizeof(char) * 10);
+	argv[3] = (char*)malloc(sizeof(char) * 10);
+	argv[4] = (char*)malloc(sizeof(char) * 10);
+	argv[5] = (char*)malloc(sizeof(char) * 10);
+	cin >> argv[1];
+	cin >> argv[2];
+	cin >> argv[3];
+	cin >> argv[4];
+	cin >> argv[5];
 
 	int length = 0;
 	char *word[100000];
@@ -423,7 +434,7 @@ int main(int argc, char *argv[])
 
 	int s = 1;
 	cout << "Following are longest distances from source vertex " << s << " \n";
-	map->topologicalSort();
+	
 	getInput(argc, argv, map, word, length, dist);
 	map->longestPath(s, word, dist, true);
 	cout << "nothing" << endl;

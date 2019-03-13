@@ -55,3 +55,4 @@ int  getWord(char *words[], string path);
 void getInput(int argc, char *argv[], Graph *map, char* word[], int length, Node_Path *dist);
 int isOpt(char option[], int argc, char *argv[]);
 Node_Path *dist;
+vector<int> R_Path;
