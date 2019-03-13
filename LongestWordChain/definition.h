@@ -1,8 +1,10 @@
 #pragma once
 #include <vector>
 #include <list>
+#include <string>
 int para[10];
 int E_degree[100000];
+using namespace std;
 
 class Node_Path
 {
@@ -28,6 +30,7 @@ public:
 // Class to represent a graph
 class Graph
 {
+private:
 	int V; // No. of vertices'
 	vector<int> Stack;
 	// Pointer to an array containing adjacency listsList
@@ -45,9 +48,10 @@ public:
 	void topologicalSort();
 	void longestPath(int s, char* word[], Node_Path *dist, bool begin_end);
 	void Every_Path(int chose, char* word[], Node_Path *dist, char end_letter, char start_letter);
+	void Get_num(char* word[], int len, bool Weight);
 };
 
 int  getWord(char *words[], string path);
-void getInput(int argc, char *argv[]);
+void getInput(int argc, char *argv[], Graph *map, char* word[], int length, Node_Path *dist);
 int isOpt(char option[], int argc, char *argv[]);
 Node_Path *dist ;

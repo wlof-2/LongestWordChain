@@ -3,9 +3,9 @@
 
 #include "pch.h"
 // A C++ program to print topological sorting of a DAG
-#include "iostream"
-#include "list"
-#include "stack"
+#include <iostream>
+#include <list>
+#include <stack>
 #include <limits.h>
 #include <vector>
 #include <algorithm>
@@ -43,7 +43,7 @@ void Graph::topologicalSortUtil(int v, bool visited[])
 		}
 		else
 		{
-			if (find(Stack.begin(), Stack.end(), i->getV) != Stack.end())
+			if (find(Stack.begin(), Stack.end(), i->getV()) != Stack.end())
 			{
 				// 说明，该点已经访问过，但是不在Stack中，所以出现环
 				return;
@@ -100,7 +100,8 @@ void Graph::longestPath(int start, char* word[], Node_Path *dist, bool begin_end
 		//取出拓扑序列中的第一个点
 		int u = Stack.back();
 		Stack.pop_back();
-
+		if (begin_end && u != start)
+			continue;
 		// 更新到所有邻接点的距离
 		list<AdjListNode>::iterator i;
 		if (dist[u].end_length != NINF)
@@ -111,7 +112,7 @@ void Graph::longestPath(int start, char* word[], Node_Path *dist, bool begin_end
 				{
 					//从某个点作为开头开始找
 					if (dist[i->getV()].end_length < dist[u].end_length + i->getWeight() && \
-						(dist[i->getV()].Path.front == start || u == start))
+						(dist[i->getV()].Path.front() == start || u == start))
 					{
 						dist[i->getV()].end_length = dist[u].end_length + i->getWeight();
 						dist[i->getV()].Path = dist[u].Path;
@@ -145,7 +146,7 @@ void Graph::Every_Path(int chose, char* word[], Node_Path *dist, char end_letter
 	}
 	if (chose == 1)
 	{
-		//表示直接找最长单词链，带权的
+		//表示直接找最长单词链
 		longestPath(0, word, dist, false);
 		for (int i = 0; i < V; i++)
 		{
@@ -209,7 +210,7 @@ void Graph::Every_Path(int chose, char* word[], Node_Path *dist, char end_letter
 	}
 }
 
-void Get_num(char* word[], int len, Graph *map_node, bool Weight)
+void Graph::Get_num(char* word[], int len, bool Weight)
 {
 	int length = 0;
 	char word_end;
@@ -223,9 +224,9 @@ void Get_num(char* word[], int len, Graph *map_node, bool Weight)
 			{
 				E_degree[j] += 1;
 				if(Weight)
-					map_node->addEdge(i, j, strlen(word[j]));
+					addEdge(i, j, strlen(word[j]));
 				else
-					map_node->addEdge(i, j, 1);
+					addEdge(i, j, 1);
 			}
 		}
 	}

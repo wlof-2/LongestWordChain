@@ -47,10 +47,12 @@ int getWord(char *words[], string path)
 	return lens;
 }
 
-void getInput(int argc, char *argv[]) 
+void getInput(int argc, char *argv[], Graph *map, char* word[], int length, Node_Path *dist)
 {
 	if (isOpt(opt[0], argc, argv))				//parameter "-w"
 	{
+		map->Get_num(word, length, true);
+		//新建一个图存储
 		if (isOpt(opt[1], argc, argv))
 		{
 			cout << "parameter error: -w and -c can't occur simultaneously" << endl;
@@ -60,13 +62,14 @@ void getInput(int argc, char *argv[])
 		{
 			if (isOpt(opt[3], argc, argv))	    //parameter "-h"
 			{
-				string head;
-				head = argv[isOpt(opt[3], argc, argv) + 1];
+				char head;
+				head = argv[isOpt(opt[3], argc, argv) + 1][0];
 				if (isOpt(opt[4], argc, argv))	//parameter "-t"
 				{
-					string tail;
-					tail = argv[isOpt(opt[4], argc, argv) + 1];
+					char tail;
+					tail = argv[isOpt(opt[4], argc, argv) + 1][0];
 					//parameter "-w" "-r" "-h" "-t"
+					map->Every_Path(1, word, dist, tail, head);
 				}
 				else
 				{
@@ -75,8 +78,8 @@ void getInput(int argc, char *argv[])
 			}
 			else if (opt[4], argc, argv)       //parameter "-t"
 			{
-				string tail;
-				tail = argv[isOpt(opt[4], argc, argv) + 1];
+				char tail;
+				tail = argv[isOpt(opt[4], argc, argv) + 1][0];
 				//parameter "-w" "-r" "-t"
 			}
 			else
@@ -87,6 +90,8 @@ void getInput(int argc, char *argv[])
 		else									//
 		{
 			//parameter "-w" 
+			
+			//map->Every_Path()
 		}
 	}
 	else if (isOpt(opt[1], argc, argv))			//parameter "-c"
