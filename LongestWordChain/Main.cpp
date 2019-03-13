@@ -405,7 +405,9 @@ int main(int argc, char *argv[])
 	// Create a graph given in the above diagram.  Here vertex numbers are
 	// 0, 1, 2, 3, 4, 5 with following mappings:
 	// 0=r, 1=s, 2=t, 3=x, 4=y, 5=z
+	
 	cin >> argc;
+	cin >> *argv;
 
 	int length = 0;
 	char *word[100000];
