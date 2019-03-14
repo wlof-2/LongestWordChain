@@ -59,7 +59,8 @@ vector<int> R_Path;
 
 void paraAnalysis(int argc, char * argv[], char opt[][5], int & flag_wc, char & head, char & tail, bool & para_loop, string &filePath);
 int getWord(char *words[], string path);
-
+int gen_chain_word(char* words[], int lens, char* result[], char head, char tail, bool enable_loop);
+int gen_chain_char(char* words[], int lens, char* result[], char head, char tail, bool enable_loop);
 
 constexpr auto ALPHA_LENGTH = 26;			//开头字母种类;
 

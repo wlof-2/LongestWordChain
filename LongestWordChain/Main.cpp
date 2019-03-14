@@ -46,9 +46,11 @@ void Graph::topologicalSortUtil(int v, bool visited[])
 		}
 		else
 		{
-			if (find(Stack.begin(), Stack.end(), i->getV()) != Stack.end())
+			if (find(Stack.begin(), Stack.end(), i->getV()) == Stack.end())
 			{
 				// 说明，该点已经访问过，但是不在Stack中，所以出现环
+				cout << " Loop in the acyclic graph" << endl;
+				exit(1);
 				return;
 			}
 		}
@@ -140,7 +142,7 @@ void Graph::longestPath(int start, char* word[], bool begin_end, bool Weight)
 						dist[i->getV()].Path = dist[u].Path;
 						dist[i->getV()].Path.push_back(u);
 					}
-					else if (dist[i->getV()].end_length < dist[u].end_length + i->getWeight() && E_degree[u] != 0 &&  dist[i->getV()].Path.front() == start)
+					else if (dist[i->getV()].end_length < dist[u].end_length + i->getWeight() && E_degree[u] != 0 &&  dist[u].Path.front() == start)
 					{
 						dist[i->getV()].end_length = dist[u].end_length + i->getWeight();
 						dist[i->getV()].Path = dist[u].Path;
@@ -237,6 +239,7 @@ void Graph::Every_Path(int chose, char* word[], char end_letter, char start_lett
 					R_Path = dist[i].Path;
 				}
 			}
+			topologicalSort();
 		}
 	}
 	R_Path.push_back(end_point);
@@ -539,18 +542,18 @@ int main(int argc, char *argv[])
 	// 0, 1, 2, 3, 4, 5 with following mappings:
 	// 0=r, 1=s, 2=t, 3=x, 4=y, 5=z
 	
-	//cin >> argc;
-	//argv[1] = (char*)malloc(sizeof(char) * 10);
-	//argv[2] = (char*)malloc(sizeof(char) * 10);
-	//argv[3] = (char*)malloc(sizeof(char) * 10);
-	//argv[4] = (char*)malloc(sizeof(char) * 10);
+	/*cin >> argc;
+	argv[1] = (char*)malloc(sizeof(char) * 10);
+	argv[2] = (char*)malloc(sizeof(char) * 10);
+	argv[3] = (char*)malloc(sizeof(char) * 10);
+	argv[4] = (char*)malloc(sizeof(char) * 10);*/
 	//argv[5] = (char*)malloc(sizeof(char) * 10);
 	//argv[6] = (char*)malloc(sizeof(char) * 10);
 
-	//cin >> argv[1];
-	//cin >> argv[2];
-	//cin >> argv[3];
-	//cin >> argv[4];
+	/*cin >> argv[1];
+	cin >> argv[2];
+	cin >> argv[3];
+	cin >> argv[4];*/
 	//cin >> argv[5];
 	//cin >> argv[6];
 
