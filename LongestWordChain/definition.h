@@ -46,13 +46,35 @@ public:
 	int getv() { return V; }
 	// prints a Topological Sort of the complete graph
 	void topologicalSort();
-	void longestPath(int s, char* word[], Node_Path *dist, bool begin_end);
-	void Every_Path(int chose, char* word[], Node_Path *dist, char end_letter, char start_letter);
+	void longestPath(int start, char* word[], bool begin_end, bool Weight);
+	void Every_Path(int chose, char* word[], char end_letter, char start_letter, bool Weight);
 	void Get_num(char* word[], int len, bool Weight);
 };
 
-int  getWord(char *words[], string path);
-void getInput(int argc, char *argv[], Graph *map, char* word[], int length, Node_Path *dist);
-int isOpt(char option[], int argc, char *argv[]);
+
+
+Graph *map;
 Node_Path *dist;
 vector<int> R_Path;
+
+void paraAnalysis(int argc, char * argv[], char opt[][5], int & flag_wc, char & head, char & tail, bool & para_loop, string &filePath);
+int getWord(char *words[], string path);
+
+
+constexpr auto ALPHA_LENGTH = 26;			//开头字母种类;
+
+/*静态全局变量，参数表*/
+static char opt[5][5] = {
+	"-w", "-c", "-r", "-h", "-t"
+};
+
+
+enum
+{
+	_w,
+	_c,
+	_r,
+	_h,
+	_t
+};
+
