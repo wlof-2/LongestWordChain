@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Graph">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAgIACAAgCABAAAAAWAAA=</HashCode>
+      <FileName>definition.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdjListNode">
+    <Position X="8" Y="2.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAgAAAAAAAAAAAAAAAAgABAAAAAQAAA=</HashCode>
+      <FileName>definition.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Node_Path">
+    <Position X="8" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>definition.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="__unnamed_enum_0071_1">
+    <Position X="4" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAACAQCAABAAA=</HashCode>
+      <FileName>definition.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

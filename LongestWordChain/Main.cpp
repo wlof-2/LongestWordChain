@@ -444,7 +444,26 @@ int gen_chain_word(char* words[] ,int lens,char* result[],char head, char tail, 
 	map->topologicalSort();
 	if (enable_loop)
 	{
-
+		if (head == 0 && tail == 0)
+		{
+			map->Every_Path(1, words, 0, 0, false);
+		}
+		else if (head != 0 && tail == 0)
+		{
+			map->Every_Path(2, words, 0, head, false);
+		}
+		else if (head == 0 && tail != 0)
+		{
+			map->Every_Path(3, words, tail, 0, false);
+		}
+		else if (head != 0 && tail != 0)
+		{
+			map->Every_Path(4, words, tail, head, false);
+		}
+		else
+		{
+			cout << "sb" << endl;
+		}
 	}
 	else
 	{
