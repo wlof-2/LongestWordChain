@@ -1,0 +1,7 @@
+﻿  pch.cpp
+  Main.cpp
+e:\level_three\software_engineering\home_work_2\notstandalone\longestwordchain\longestwordchain\main.cpp(98): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+e:\level_three\software_engineering\home_work_2\notstandalone\longestwordchain\longestwordchain\main.cpp(108): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+e:\level_three\software_engineering\home_work_2\notstandalone\longestwordchain\longestwordchain\main.cpp(254): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+e:\level_three\software_engineering\home_work_2\notstandalone\longestwordchain\longestwordchain\main.cpp(262): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  LongestWordChain.vcxproj -> E:\Level_Three\Software_Engineering\Home_Work_2\notstandalone\LongestWordChain\x64\Debug\Wordlist.exe
