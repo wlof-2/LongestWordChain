@@ -462,7 +462,7 @@ int gen_chain_word(char* words[] ,int lens,char* result[],char head, char tail, 
 		}
 		else
 		{
-			cout << "sb" << endl;
+			cout << "hhhh" << endl;
 		}
 	}
 	else
@@ -561,21 +561,6 @@ int main(int argc, char *argv[])
 	// 0, 1, 2, 3, 4, 5 with following mappings:
 	// 0=r, 1=s, 2=t, 3=x, 4=y, 5=z
 	
-	/*cin >> argc;
-	argv[1] = (char*)malloc(sizeof(char) * 10);
-	argv[2] = (char*)malloc(sizeof(char) * 10);
-	argv[3] = (char*)malloc(sizeof(char) * 10);
-	argv[4] = (char*)malloc(sizeof(char) * 10);*/
-	//argv[5] = (char*)malloc(sizeof(char) * 10);
-	//argv[6] = (char*)malloc(sizeof(char) * 10);
-
-	/*cin >> argv[1];
-	cin >> argv[2];
-	cin >> argv[3];
-	cin >> argv[4];*/
-	//cin >> argv[5];
-	//cin >> argv[6];
-
 
 	int length = 0, result_lens = 0;
 	char *word[100000], *result[1000];
