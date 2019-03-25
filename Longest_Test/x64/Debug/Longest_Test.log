@@ -1,0 +1,12 @@
+﻿D:\VS2017a\IDE\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中间目录(x64\Debug\)包含从另一个项目(Longest_Test.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  stdafx.cpp
+  unittest1.cpp
+e:\level_three\software_engineering\home_work_2\notstandalone\longestwordchain\longest_test\unittest1.cpp(34): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+unittest1.obj : error LNK2005: "int * para" (?para@@3PAHA) 已经在 Main.obj 中定义
+unittest1.obj : error LNK2005: "int * E_degree" (?E_degree@@3PAHA) 已经在 Main.obj 中定义
+unittest1.obj : error LNK2005: "class Graph * map" (?map@@3PEAVGraph@@EA) 已经在 Main.obj 中定义
+unittest1.obj : error LNK2005: "class Node_Path * dist" (?dist@@3PEAVNode_Path@@EA) 已经在 Main.obj 中定义
+unittest1.obj : error LNK2005: "class std::vector<int,class std::allocator<int> > R_Path" (?R_Path@@3V?$vector@HV?$allocator@H@std@@@std@@A) 已经在 Main.obj 中定义
+    正在创建库 E:\Level_Three\Software_Engineering\Home_Work_2\notstandalone\LongestWordChain\x64\Debug\Wordlist_test.lib 和对象 E:\Level_Three\Software_Engineering\Home_Work_2\notstandalone\LongestWordChain\x64\Debug\Wordlist_test.exp
+Main.obj : error LNK2011: 未链接预编译对象；映像可能不能运行
+E:\Level_Three\Software_Engineering\Home_Work_2\notstandalone\LongestWordChain\x64\Debug\Wordlist_test.dll : fatal error LNK1120: 1 个无法解析的外部命令
